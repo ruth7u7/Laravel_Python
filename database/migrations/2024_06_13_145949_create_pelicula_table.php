@@ -6,23 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('pelicula', function (Blueprint $table) {
             $table->id();
-            $table->char('Titulo');
-            $table->char('FechaEstreno');
-            $table->char('Director');
-            $table->char('Generos');
-            $table->int('idClasificacion');
-            $table->int('idEstado');
-            $table->char('Duracion');
-            $table->char('Link');
-            $table->string('Reparto');
-            $table->string('Sinopsis');
+            $table->char('Titulo', 80);
+            $table->date('FechaEstreno');
+            $table->char('Director', 50);
+            $table->char('Generos', 10);
+            $table->integer('idClasificacion');
+            $table->integer('idEstado');
+            $table->char('Duracion', 3);
+            $table->char('Link', 20);
+            $table->text('Reparto', 300);
+            $table->text('Sinopsis', 800);
             $table->timestamps();
         });
     }

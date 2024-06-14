@@ -7,10 +7,22 @@ use Illuminate\Http\Request;
 
 class PeliculaController extends Controller
 {
-    public function index()
+    public function show()
     {
-        $pelis = Pelicula::findAll();
-        return response()-> json($pelis);
+        try {
+
+            $pelis = Pelicula::findAll();
+            return response()-> json($pelis);
+
+        } catch (\Exception $e) {
+            
+            return response()-> json($e);
+        }
+        
+    }
+
+    public function get($idpelicula)
+    {
     }
 
     public function store(Request $request) 
@@ -19,9 +31,13 @@ class PeliculaController extends Controller
         $pelis -> Titulo = $request -> Titulo;
         $pelis -> FechaEstreno = $request -> FechaEstreno;
 
-        if($pelis->save()){
+        if($pelis->save())
+        {
             return response()->json($pelis);
         }
-        return abort(402, "Error al insertar los datos")    
+
+        return abort(402, "Error al insertar los datos");    
     }
+
+
 }
