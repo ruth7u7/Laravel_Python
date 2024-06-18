@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('distritos', function (Blueprint $table) {
             $table->id();
+            $table->char('Detalles',30)->unique();
             $table->timestamps();
         });
     }

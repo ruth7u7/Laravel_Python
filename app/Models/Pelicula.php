@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pelicula extends Model
 {
     use HasFactory;
+    protected $table = 'Pelicula';
     protected $fillable = [
                     'Titulo',
                     'FechaEstreno',
@@ -20,4 +21,5 @@ class Pelicula extends Model
                     'Reparto',
                     'Sinopsis',
     ];
+    protected $primaryKey = 'id';
 }

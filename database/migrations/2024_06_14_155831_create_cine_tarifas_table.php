@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('cine_tarifas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idCine');
+            $table->char('diasSemana');
+            $table->decimal('Precio', 5, 2);
             $table->timestamps();
+            $table->foreign('idCine')->references('id')->on('cines')->onDelete('cascade');
         });
     }
 
@@ -22,6 +26,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('cine_tarifas', function (Blueprint $table) {
+            $table->dropForeign(['idCine']);
+        });
+
         Schema::dropIfExists('cine_tarifas');
     }
 };
