@@ -11,7 +11,7 @@ class PeliculaController extends Controller
     {
         try {
 
-            $peli = Pelicula::findAll();
+            $peli = Pelicula::All();
             return response()-> json($peli);
 
         } catch (\Exception $e) {

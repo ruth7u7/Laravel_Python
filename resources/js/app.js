@@ -1,5 +1,5 @@
 // resources/js/app.js
-import React from 'react';
+import React, {useState} from 'react';
 import '../../resources/js/Index';
 import ReactDOM from 'react-dom';
 
