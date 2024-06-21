@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "serve": "php artisan serve",
+        "start": "concurrently \"npm run dev\" \"php artisan serve\" \"python app.py\""
     },
     "devDependencies": {
         "axios": "^1.6.4",
@@ -12,6 +14,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "@babel/preset-react": "^7.24.7",
         "react": "^18.3.1",
         "react-dom": "^18.3.1"
     }

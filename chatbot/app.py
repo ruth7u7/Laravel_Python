@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-API_URL = 'localhost:8000/api/show'
+API_URL = 'localhost:8000/api/get/{idpelicula}'
 
 @app.route('/chatbot', methods = ['POST'])
 
@@ -16,8 +16,8 @@ def chatbot():
 
     return jsonify({"Response": response_message})
 
-def handle_message(mesage):
-    if mesage.lower().startswith('pelicula'):
+def handle_message(message):
+    if message.lower().startswith('pelicula'):
         parts = message.split()
         if len(parts) > 1:
             try:

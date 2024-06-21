@@ -1,14 +1,5 @@
-// resources/js/app.js
-import React, {useState} from 'react';
-import '../../resources/js/Index';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import Index from './components/Index';
 
-function App() {
-    return (
-        <div>
-            <h1>Hello, React with Laravel Mix!</h1>
-        </div>
-    );
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById('app'));
