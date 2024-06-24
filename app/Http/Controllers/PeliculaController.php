@@ -11,18 +11,34 @@ class PeliculaController extends Controller
     {
         try {
 
-            $pelis = Pelicula::findAll();
-            return response()-> json($pelis);
+            $peli = Pelicula::All();
+            return response()-> json($peli);
 
         } catch (\Exception $e) {
             
-            return response()-> json($e);
+            return response()->json($e);
         }
         
     }
 
     public function get($idpelicula)
     {
+        
+        $pelis = Pelicula::where('id', $idpelicula)->first();
+
+        if (!$pelis) {
+            return response() -> json(404);
+        }
+        return response()-> json($pelis);
+
+        // try {
+        //     $peli=Pelicula::with('id', $idpelicula)->get();
+        //     return response()->json($peli);
+            
+        // } catch (\Exception $e){
+        //     return response()->json('Error, No se encontro el id',$e);
+        // }
+
     }
 
     public function store(Request $request) 

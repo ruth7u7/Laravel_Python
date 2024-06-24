@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('cine_peliculas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idCine');
+            $table->unsignedBigInteger('idPelicula');
+            $table->integer('Sala')->notNull();
+            $table->char('Horarios', 150)->notNull();
             $table->timestamps();
+
+            $table->foreign('idCine')->references('id')->on('cines')->onDelete('cascade');
+            $table->foreign('idPelicula')->references('id')->on('pelicula')->onDelete('cascade');
         });
     }
 
@@ -22,6 +29,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('cine_peliculas', function (Blueprint $table) {
+            $table->dropForeign(['idCine']);
+            $table->dropForeign(['idPelicula']);
+        });
         Schema::dropIfExists('cine_peliculas');
+        
     }
 };

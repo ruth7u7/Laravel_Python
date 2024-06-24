@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Distrito extends Model
 {
     use HasFactory;
+    protected $table = 'Distritos';
     protected $fillable = [
         'Detalle'
     ];
+    protected $primaryKey = 'id';
+    
 }
