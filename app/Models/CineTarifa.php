@@ -10,10 +10,10 @@ class CineTarifa extends Model
     use HasFactory;
     protected $fillable = [
         'idCine',
-        'diasSemana',
+        'DiasSemana',
         'Precio',
     ];
-     public function Cine() {
+    public function Cine() {
         return $this->belongsTo(Cine::class, 'id');
-     }
+    }
 }
