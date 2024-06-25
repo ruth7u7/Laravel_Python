@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
 
-const Index = () => {
+const Chatbot = () => {
 
     const [message, setMessage] = useState('');
     const [chat, setChat] = useState([]);
@@ -9,7 +9,7 @@ const Index = () => {
 
     const sendMessage = async () => {
         try {
-            const response = await axios.post('http:localhost:8000/api/chatbot', {message})
+            const response = await axios.post('http://localhost:5000/api/chatbot', {message})
             setChat([...chat, {user: 'You', text:message}, {user: 'Chatbot', text: response.data.response}]);
             setMessage('');   
             } catch(error){
@@ -52,4 +52,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export default Chatbot;

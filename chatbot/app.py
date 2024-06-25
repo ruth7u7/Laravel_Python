@@ -3,10 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 import requests
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@loxalhost:3006/cinestar'
+db = SQLAlchemy(app)
 
-API_URL = 'localhost:8000/api/get/{idpelicula}'
+API_URL = 'http://localhost:8000/api/get/{idpelicula}'
 
-@app.route('/chatbot', methods = ['POST'])
+@app.route('/api/chatbot', methods = ['POST'])
 
 def chatbot():
     data = request.get_json()
@@ -22,7 +24,9 @@ def handle_message(message):
         if len(parts) > 1:
             try:
                 peli_id = int(parts[1])
-                response = requests.get(f"{API_URL}/{peli_id}")
+                url = API_URL.format(idpelicula = peli_id)
+                response = requests.get(url)
+                # response = requests.get(f"{API_URL}/{peli_id}")
                 if response.status.code == 200:
                     peli_data = response.json()
                     return f"Título: {peli_data['Título']}, Fecha de Estreno: {peli_data['FechaEstreno']}"
