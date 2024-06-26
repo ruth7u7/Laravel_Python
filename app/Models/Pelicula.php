@@ -22,4 +22,6 @@ class Pelicula extends Model
                     'Sinopsis',
     ];
     protected $primaryKey = 'id';
+
+    
 }
