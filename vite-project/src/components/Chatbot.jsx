@@ -1,105 +1,61 @@
-// import React, {useState, useEffect, useRef} from "react";
-// import axios from "axios";
-
-// const Chatbot = () => {
-
-//     const [message, setMessage] = useState('');
-//     const [chat, setChat] = useState([]);
-//     const chatEndRef = useRef(null);
-
-//     const sendMessage = async () => {
-//         try {
-//             console.log("Entrando")
-//             const response = await axios.post('http://localhost:5000/chatbot', {message})
-//             console.log(response)
-//             setChat([...chat, {user: 'You', text:message}, {user: 'Chatbot', text: response.data.Response}]);
-//             setMessage('');   
-//             } catch(error){
-//                 console.error("Error enviando el mensaje:", error);
-//                 setChat([...chat, {user: 'You', text: message}, {user: 'Chatbot', text:'Ocurrió un error, intenta nuevamente'}])
-//         }
-//     };
-
-//     useEffect(() => {
-//         chatEndRef.current?.scrollIntoView({behavior: 'smooth'});
-//     }, [chat]);
-
-//     const handleKeyPress = (event) => {
-//         if(event.key === 'Enter'){
-//             sendMessage();
-//         }
-//     };
-
-//     return (
-//         <div className="container">
-//             <h1>DIRCEBOT</h1>
-//                 <div className="border rounded p-3">
-//                     {chat.map((msg, index) => (
-//                         <div key={index}><strong>{msg.user}</strong>{msg.text}</div>
-//                         ))}
-//                 </div>
-//                 <div className="input-group mt-3">
-//                     <input 
-//                         type="text"
-//                         className="form-control"
-//                         placeholder="Escribele al Botsito"
-//                         value={message}
-//                         onChange={(e) => setMessage(e.target.value)}
-//                         onKeyPress={handleKeyPress}
-//                     />
-//                     <div className="input-group-append">
-//                         <button className="btn btn-primary" onClick={sendMessage} disabled={!message}>Enviar</button>
-//                     </div>
-//                 </div>
-//         </div>
-//     );
-// };
-
-// export default Chatbot;
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { X } from 'lucide-react'; // Icono para el botón de cerrar
+import './Chatbot.css';  // Asegúrate de importar el archivo CSS
 
 const Chatbot = () => {
+  // Estados para controlar la visibilidad del modal, el mensaje del usuario y el historial de chat
+  const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
+  
+  // Referencia al final del chat para scroll automático
   const chatEndRef = useRef(null);
 
+  // Efecto para hacer scroll automático al final del chat cada vez que se actualiza
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chat]);
+
+  // Función para enviar un mensaje al chatbot
   const sendMessage = async () => {
-    if (!message.trim()) return;
-    
+    if (!message.trim()) return; // No enviar mensajes vacíos
     try {
+      console.log("iniciando");
       const response = await axios.post('http://localhost:5000/chatbot', { message });
       const botResponse = response.data.Response;
-      
+      console.log(response);
       let formattedResponse = botResponse;
+
+      // Formatear la respuesta si es un objeto (por ejemplo, datos de una película)
       if (typeof botResponse === 'object' && botResponse !== null) {
         formattedResponse = formatMovieData(botResponse);
       }
 
-      setChat([...chat, 
-        { user: 'You', text: message }, 
+      // Actualizar el historial de chat
+      setChat([...chat,
+        { user: 'You', text: message },
         { user: 'Chatbot', text: formattedResponse }
       ]);
-      setMessage('');
+      setMessage(''); // Limpiar el campo de entrada
     } catch (error) {
       console.error("Error enviando el mensaje:", error);
-      setChat([...chat, 
-        { user: 'You', text: message }, 
+      // Mostrar un mensaje de error en el chat
+      setChat([...chat,
+        { user: 'You', text: message },
         { user: 'Chatbot', text: 'Ocurrió un error, intenta nuevamente' }
       ]);
     }
   };
 
+  // Función para formatear los datos de una película
   const formatMovieData = (movieData) => {
     return Object.entries(movieData)
       .map(([key, value]) => `${key}: ${value}`)
       .join('\n');
   };
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [chat]);
-
+  // Función para manejar la tecla Enter en el campo de entrada
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       sendMessage();
@@ -107,34 +63,54 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">DIRCEBOT</h1>
-      <div className="border rounded p-3 mb-3" style={{height: '400px', overflowY: 'auto'}}>
-        {chat.map((msg, index) => (
-          <div key={index} className={`mb-2 ${msg.user === 'You' ? 'text-right' : 'text-left'}`}>
-            <strong>{msg.user}: </strong>
-            <pre style={{whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontFamily: 'inherit'}}>
-              {msg.text}
-            </pre>
+    <div className="chatbot-container">
+      {!isOpen ? (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="chat-button"
+        >
+          Chat
+        </button>
+      ) : (
+        <div className="chat-modal">
+          <div className="chat-header">
+            <h2 className="chat-title">BOT</h2>
+            <button onClick={() => setIsOpen(false)} className="close-button">
+              <X size={24} />
+            </button>
           </div>
-        ))}
-        <div ref={chatEndRef} />
-      </div>
-      <div className="input-group">
-        <input 
-          type="text"
-          className="form-control"
-          placeholder="Escríbele al Botsito (ej: pelicula 1)"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <div className="input-group-append">
-          <button className="btn btn-primary" onClick={sendMessage} disabled={!message.trim()}>
-            Enviar
-          </button>
+          <div className="chat-messages">
+            {chat.map((msg, index) => (
+              <div key={index} className={`message ${msg.user === 'You' ? 'message-you' : 'message-bot'}`}>
+                <div className="message-content">
+                  <strong>{msg.user}: </strong>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
+          <div className="chat-input">
+            <div className="input-group">
+              <input
+                type="text"
+                className="chat-input-field"
+                placeholder="Escríbele al Botsito (ej: pelicula 1)"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+              />
+              <button
+                className="send-button"
+                onClick={sendMessage}
+                disabled={!message.trim()}
+              >
+                Enviar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
