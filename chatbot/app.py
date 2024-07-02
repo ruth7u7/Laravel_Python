@@ -1,6 +1,7 @@
 import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flasgger import Swagger, swag_from
 import re
 
 # Crear una instancia de la aplicación Flask
@@ -8,15 +9,66 @@ app = Flask(__name__)
 # Habilitar CORS para todas las rutas
 CORS(app)
 
+# Inicializar Swagger 
+swagger = Swagger(app)
+
 # Definir una ruta para manejar las solicitudes POST en /chatbot
 @app.route('/chatbot', methods=['POST'])
+@swag_from({
+    'summary': 'Procesa el mensaje del usuario y devuelve una respuesta del chatbot.',
+    'description': 'Cuando el usuario escriba el ID de una película, el chatbot devolverá la información de la película desde una API externa.',
+    'responses': {
+        200: {
+            'description': 'Respuesta exitosa',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'Response': {
+                        'type': 'string',
+                        'description': 'La respuesta del chatbot'
+                    }
+                }
+            }
+        },
+        400: {
+            'description': 'Solicitud incorrecta',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'error': {
+                        'type': 'string',
+                        'description': 'Descripción del error'
+                    }
+                }
+            }
+        }
+    },
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'message': {
+                        'type': 'string',
+                        'example': 'pelicula 1'
+                    }
+                }
+            }
+        }
+    ]
+})
 def chatbot():
     """
     Esta función maneja las solicitudes POST a la ruta /chatbot.
     Extrae el mensaje del cuerpo de la solicitud, lo procesa y devuelve una respuesta JSON.
     """
     data = request.get_json()  # Obtener datos JSON de la solicitud
-    message = data.get('message')  # Extraer el mensaje del JSON
+    if not data or 'message' not in data:
+        return jsonify({"error": "Mensaje no proporcionado"}), 400
+    message = data['message']  # Extraer el mensaje del JSON
     response_message = handle_message(message)  # Procesar el mensaje
     return jsonify({"Response": response_message})  # Devolver la respuesta como JSON
 
@@ -54,16 +106,17 @@ def get_movie_from_php_api(idpelicula):
         idpelicula (int): El ID de la película.
 
     Returns:
-        dict: La información de la película en formato JSON si se encuentra, None en caso contrario.
+        dict: La información de la película en formato JSON si se encuentra, None en caso contrario.    
     """
-    api_url = f'http://localhost:8000/api/get/{idpelicula}'  # Construir la URL de la API
-    response = requests.get(api_url)  # Hacer la solicitud GET a la API
-
-    if response.status_code == 200:
+    api_url = f'http://localhost:8000/api/get/{idpelicula}'  # Consumir la URL de la API de Laravel
+    try:
+        response = requests.get(api_url)  # Hacer la solicitud GET a la API
+        response.raise_for_status()  # Lanza una excepción para códigos de estado HTTP erróneos
         return response.json()  # Devolver la respuesta JSON si el estado es 200 OK
-    else:
-        return response.json("no se encontro la pelicula")  # Devolver un mensaje de error si no se encuentra la película
-    
+    except requests.RequestException as e:
+        print(f"Error al obtener la película: {e}")
+        return None
+
 def format_movie_info(pelicula):
     """
     Esta función formatea la información de la película en una cadena legible.
@@ -74,18 +127,7 @@ def format_movie_info(pelicula):
     Returns:
         str: La información de la película formateada como una cadena.
     """
-    return f"""
-    Titulo: {pelicula['Titulo']}
-    FechaEstreno: {pelicula['FechaEstreno']}
-    Director: {pelicula['Director']}
-    Generos: {pelicula['Generos']}
-    idClasificacion: {pelicula['idClasificacion']}
-    idEstado: {pelicula['idEstado']}
-    Duracion: {pelicula['Duracion']}
-    Link: {pelicula['Link']}
-    Reparto: {pelicula['Reparto']}
-    Sinopsis: {pelicula['Sinopsis']}
-    """.strip()
+    return "\n".join([f"{key}: {value}" for key, value in pelicula.items()])
 
 # Ejecutar la aplicación Flask en modo depuración
 if __name__ == '__main__':

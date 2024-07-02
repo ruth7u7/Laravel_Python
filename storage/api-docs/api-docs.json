@@ -1,0 +1,99 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APIs de Películas",
+        "description": "Esta es la documentación de la APIs de Películas",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/get/{idpelicula}": {
+            "get": {
+                "tags": [
+                    "Películas"
+                ],
+                "summary": "Obtener una película por ID",
+                "operationId": "e677dd936d514e6ea9781e7937a56809",
+                "parameters": [
+                    {
+                        "name": "idpelicula",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Película encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "Titulo": {
+                                            "type": "char",
+                                            "example": "Jumanji: En la Selva (Todo Público)"
+                                        },
+                                        "FechaEstreno": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2018-01-11"
+                                        },
+                                        "Director": {
+                                            "type": "char",
+                                            "example": "Jake Kasdan"
+                                        },
+                                        "Generos": {
+                                            "type": "char",
+                                            "example": "3,9"
+                                        },
+                                        "idClasificacion": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "idEstado": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "Duracion": {
+                                            "type": "char",
+                                            "example": "120"
+                                        },
+                                        "Link": {
+                                            "type": "char",
+                                            "example": "6maujJFcuxA"
+                                        },
+                                        "Reparto": {
+                                            "type": "text",
+                                            "example": "Dwayne Johnson, Kevin Hart, Jack Black, Karen Gillan"
+                                        },
+                                        "Sinopsis": {
+                                            "type": "text",
+                                            "example": "Remake de la película homónima de 1995 adaptado a la época actual,\n *             en donde cuatro adolescentes se introducen en un nueva aventura a partir de “Jumanji”, un videojuego que sirve como un portal a través\n *             del espacio-tiempo. Absorbidos por el mundo de Jumanji, este juego no se puede abandonar hasta que acaba la partida"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Película no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer"
+                                },
+                                "example": 404
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
