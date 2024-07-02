@@ -1,0 +1,61 @@
+!!!!!!!!! Documentación !!!!!!!!! 
+
+° Documentación de Laravel (Swagger) 
+
+   http://127.0.0.1:8000/api/documentation#/
+
+   Solo se usó una API para este trabajo
+
+° Documentación en Python (flasgger)
+
+   http://127.0.0.1:5000/apidocs/#/
+
+==============================================
+
+!!!!!!!!! Comandos usados !!!!!!!!! 
+
+° En React 
+
+-> Entrar a la carpeta donde se encuentra 
+
+   cd vite-project
+
+   npm run dev - Para ejecutar el proyecto
+
+° En Laravel 
+
+   php artisan serve - Encender el localhost
+
+° En Python
+
+-> Entrar a la carpeta donde se encuentra 
+
+   cd Chatbot
+
+Nota: Posiblemente sea necesario reinstalar el Entorno Virtual
+
+-> Eliminar el entorno virtual existente
+
+   rm -r venv
+
+-> Crea un nuevo entorno virtual usando la versión de Python instalada en tu sistema
+
+   python -m venv venv
+
+-> Activarlo 
+
+  .\venv\Scripts\actívate
+
+Instalar las librerías y framework con el entorno virtual activado
+
+
+Nota2: En caso de restricción de usos al momento de activar el Entorno Virtual
+
+-> Ingresar a Windows Powershell y ejecutar
+
+   Set-ExecutionPolicy RemoteSigned
+
+-> Aceptar 
+
+Después de esto intente volver a activarlo 
+
