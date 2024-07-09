@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('cines', function (Blueprint $table) {
             $table->id();
-            $table->char('RazonSocial',30);
-            $table->integer('Salas');
+            $table->char('RazonSocial',30)->notNull();
+            $table->integer('Salas')->notNull();
             $table->unsignedBigInteger('idDistrito');
-            $table->char('Direccion',100);
-            $table->char('Telefonos',20);
+            $table->char('Direccion',100)->notNull();
+            $table->char('Telefonos',20)->notNull();
             $table->timestamps();
 
             $table->foreign('idDistrito')->references('id')->on('distritos')->onDelete('cascade');

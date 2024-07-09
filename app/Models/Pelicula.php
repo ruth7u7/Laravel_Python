@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pelicula extends Model
 {
@@ -13,7 +14,6 @@ class Pelicula extends Model
                     'Titulo',
                     'FechaEstreno',
                     'Director',
-                    'Generos',
                     'idClasificacion',
                     'idEstado',
                     'Duracion',
@@ -22,6 +22,4 @@ class Pelicula extends Model
                     'Sinopsis',
     ];
     protected $primaryKey = 'id';
-
-    
 }

@@ -10,17 +10,17 @@ return new class extends Migration
     {
         Schema::create('pelicula', function (Blueprint $table) {
             $table->id();
-            $table->char('Titulo', 80);
-            $table->date('FechaEstreno');
-            $table->char('Director', 50);
-            $table->char('Generos', 10);
-            $table->integer('idClasificacion');
-            $table->integer('idEstado');
-            $table->char('Duracion', 3);
+            $table->char('Titulo', 80)->notNull();
+            $table->date('FechaEstreno')->notNull();
+            $table->char('Director', 50)->notNull();
+            $table->integer('idClasificacion')->notNull();
+            $table->integer('idEstado')->notNull();
+            $table->char('Duracion', 3)->notNull();
             $table->char('Link', 20);
             $table->text('Reparto', 300);
             $table->text('Sinopsis', 800);
             $table->timestamps();
+
         });
     }
 

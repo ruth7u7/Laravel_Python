@@ -12,7 +12,7 @@ class Cliente extends Model
     protected $fillable = [
         'Nombres',
         'Correo',
-        'Passwordd',
+        'Contrasena',
     ];
     protected $primaryKey = 'id';
 

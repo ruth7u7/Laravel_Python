@@ -6,6 +6,7 @@ import re
 
 # Crear una instancia de la aplicación Flask
 app = Flask(__name__)
+
 # Habilitar CORS para todas las rutas
 CORS(app)
 
