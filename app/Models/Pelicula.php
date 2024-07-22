@@ -13,7 +13,6 @@ class Pelicula extends Model
                     'Titulo',
                     'FechaEstreno',
                     'Director',
-                    'Generos',
                     'idClasificacion',
                     'idEstado',
                     'Duracion',
