@@ -21,5 +21,5 @@ class Pelicula extends Model
                     'v_reparto',
                     'v_sinopsis',
     ];
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'n_id_pelicula';
 }

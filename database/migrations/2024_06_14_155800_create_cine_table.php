@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cine', function (Blueprint $table) {
-            $table->id();
-            $table->stirng('RazonSocial',30)->notNull();
-            $table->unsignedBigInteger('idDistrito');
-            $table->string('Direccion',100)->notNull();
-            $table->number('Telefonos',20)->notNull();
+            $table->bigIncrements('n_id_cine');
+            $table->unsignedBigInteger('n_id_distrito');
+            $table->stirng('v_razon_social',30)->notNull();
+            $table->string('v_direccion',100)->notNull();
+            $table->integer('n_telefonos',9)->notNull();
             $table->timestamps();
-            $table->foreign('idDistrito')->references('id')->on('distritos')->onDelete('cascade');
+            $table->foreign('n_id_distrito')->references('id')->on('distrito')->onDelete('cascade');
         });
     }
 
@@ -27,8 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cines', function (Blueprint $table) {
-            $table->dropForeign(['idDistrito']);
+        Schema::table('cine', function (Blueprint $table) {
+            $table->dropForeign(['n_id_distrito']);
         });
         Schema::dropIfExists('cine');
     }
