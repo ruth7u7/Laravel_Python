@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cines', function (Blueprint $table) {
+        Schema::create('cine', function (Blueprint $table) {
             $table->id();
-            $table->char('RazonSocial',30)->notNull();
-            $table->integer('Salas')->notNull();
+            $table->stirng('RazonSocial',30)->notNull();
             $table->unsignedBigInteger('idDistrito');
-            $table->char('Direccion',100)->notNull();
-            $table->char('Telefonos',20)->notNull();
+            $table->string('Direccion',100)->notNull();
+            $table->number('Telefonos',20)->notNull();
             $table->timestamps();
-
             $table->foreign('idDistrito')->references('id')->on('distritos')->onDelete('cascade');
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
         Schema::table('cines', function (Blueprint $table) {
             $table->dropForeign(['idDistrito']);
         });
-        Schema::dropIfExists('cines');
+        Schema::dropIfExists('cine');
     }
 };
