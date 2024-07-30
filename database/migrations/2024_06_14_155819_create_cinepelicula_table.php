@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('n_id_cine');
             $table->date('d_horarios', 150)->notNull();
             $table->timestamps();
-            $table->foreign('n_id_pelicula')->references('id')->on('pelicula')->onDelete('cascade');
-            $table->foreign('n_id_cine')->references('id')->on('cines')->onDelete('cascade');
+            $table->foreign('n_id_pelicula')->references('n_id_pelicula')->on('pelicula')->onDelete('cascade');
+            $table->foreign('n_id_cine')->references('n_id_cine')->on('cine')->onDelete('cascade');
         });
     }
 

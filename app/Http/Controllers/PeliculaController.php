@@ -73,7 +73,7 @@ class PeliculaController extends Controller
 
 public function get($idpelicula)
 {
-    $pelis = Pelicula::where('id', $idpelicula)->first();
+    $pelis = Pelicula::where('n_id_pelicula', $idpelicula)->first();
 
     if (!$pelis) {
         return response()->json(404);

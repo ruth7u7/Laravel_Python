@@ -43,17 +43,6 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'oracle' => [
-            'driver'        => 'oracle',
-            'host'          => env('DB_HOST', 'localhost'),
-            'port'          => env('DB_PORT', '1521'),
-            'database'      => env('DB_DATABASE', 'xe'),
-            'username'      => env('DB_USERNAME', 'SYSTEM'),
-            'password'      => env('DB_PASSWORD', '0rc3_Un1@2024'),
-            'charset'       => 'AL32UTF8',
-            'prefix'        => ''
-        ],
-
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -93,7 +82,7 @@ return [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '1433'),
+            'port' => env('DB_PORT', '1521'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),

@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pelicula', function (Blueprint $table) {
-            $table->bigIncrements('n_id_pelicula');
+            $table->id('n_id_pelicula');
             $table->string('v_titulo', 80)->notNull();
             $table->date('d_fechaestreno')->notNull();
             $table->string('v_director', 50)->notNull();

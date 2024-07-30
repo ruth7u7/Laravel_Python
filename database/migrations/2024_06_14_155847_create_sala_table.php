@@ -12,12 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sala', function (Blueprint $table) {
-            $table->bigIncrements('n_id_sala');
-            $table->unsignedBigInteger('n_id_pelicula');
+            $table->id('n_id_sala');
             $table->unsignedBigInteger('n_id_cine');
             $table->timestamps();
-            $table->foreign('n_id_pelicula')->references('id')->on('pelicula')->onDelete('cascade');
-            $table->foreign('n_id_cine')->references('id')->on('cine')->onDelete('cascade');
+            $table->foreign('n_id_cine')->references('n_id_cine')->on('cine')->onDelete('cascade');
         });
     }
 
@@ -27,7 +25,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('sala', function (Blueprint $table) {
-            $table->dropForeign(['n_id_pelicula']);
             $table->dropForeign(['n_id_cine']);
         });
         Schema::dropIfExists('sala');

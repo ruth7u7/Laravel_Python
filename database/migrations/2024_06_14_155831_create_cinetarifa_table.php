@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('v_dias_semana');
             $table->decimal('d_precio', 5, 2);
             $table->timestamps();
-            $table->foreign('n_id_cine')->references('id')->on('cine')->onDelete('cascade');
+            $table->foreign('n_id_cine')->references('n_id_cine')->on('cine')->onDelete('cascade');
         });
     }
 
