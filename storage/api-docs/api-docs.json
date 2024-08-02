@@ -6,16 +6,16 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/get/{idpelicula}": {
+        "/api/get/{n_id_pelicula}": {
             "get": {
                 "tags": [
-                    "Películas"
+                    "Película"
                 ],
                 "summary": "Obtener una película por ID",
-                "operationId": "e677dd936d514e6ea9781e7937a56809",
+                "operationId": "da77356c1bdd8d8f26a6827cf2360525",
                 "parameters": [
                     {
-                        "name": "idpelicula",
+                        "name": "n_id_pelicula",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -30,50 +30,46 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "id": {
-                                            "type": "integer",
+                                        "n_id_pelicula": {
+                                            "type": "unsignedBigInteger",
                                             "example": 1
                                         },
-                                        "Titulo": {
-                                            "type": "char",
+                                        "v_titulo": {
+                                            "type": "string",
                                             "example": "Jumanji: En la Selva (Todo Público)"
                                         },
-                                        "FechaEstreno": {
+                                        "d_fechaestreno": {
                                             "type": "string",
                                             "format": "date",
                                             "example": "2018-01-11"
                                         },
-                                        "Director": {
-                                            "type": "char",
+                                        "v_director": {
+                                            "type": "string",
                                             "example": "Jake Kasdan"
                                         },
-                                        "Generos": {
-                                            "type": "char",
-                                            "example": "3,9"
-                                        },
-                                        "idClasificacion": {
+                                        "n_id_clasificacion": {
                                             "type": "integer",
                                             "example": 1
                                         },
-                                        "idEstado": {
-                                            "type": "integer",
+                                        "n_id_estado": {
+                                            "type": "unsignedBigInteger",
                                             "example": 1
                                         },
-                                        "Duracion": {
-                                            "type": "char",
+                                        "n_duracion": {
+                                            "type": "unsignedBigInteger",
                                             "example": "120"
                                         },
-                                        "Link": {
-                                            "type": "char",
+                                        "v_link": {
+                                            "type": "string",
                                             "example": "6maujJFcuxA"
                                         },
-                                        "Reparto": {
-                                            "type": "text",
+                                        "v_reparto": {
+                                            "type": "string",
                                             "example": "Dwayne Johnson, Kevin Hart, Jack Black, Karen Gillan"
                                         },
-                                        "Sinopsis": {
-                                            "type": "text",
-                                            "example": "Remake de la película homónima de 1995 adaptado a la época actual,\n *             en donde cuatro adolescentes se introducen en un nueva aventura a partir de “Jumanji”, un videojuego que sirve como un portal a través\n *             del espacio-tiempo. Absorbidos por el mundo de Jumanji, este juego no se puede abandonar hasta que acaba la partida"
+                                        "v_sinopsis": {
+                                            "type": "string",
+                                            "example": "Remake de la película homónima de 1995 adaptado a la época actual,\n     *             en donde cuatro adolescentes se introducen en un nueva aventura a partir de “Jumanji”, un videojuego que sirve como un portal a través\n     *             del espacio-tiempo. Absorbidos por el mundo de Jumanji, este juego no se puede abandonar hasta que acaba la partida"
                                         }
                                     },
                                     "type": "object"
@@ -82,7 +78,7 @@
                         }
                     },
                     "404": {
-                        "description": "Película no encontrada",
+                        "description": "Ocurrio un error al obtener los datos de la pelicula",
                         "content": {
                             "application/json": {
                                 "schema": {

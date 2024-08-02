@@ -15,4 +15,17 @@ class PeliculaGenero extends Model
                     'n_id_genero',
     ];
 
+    protected $casts = [
+        'n_id_pelicula' => 'integer',
+        'n_id_genero' => 'integer'
+    ];
+
+    public function Pelicula(){
+        return $this->belongsToMany(Pelicula::class, 'n_id_pelicula');
+    }
+
+    public function Genero(){
+        return $this->belongsToMany(Genero::class, 'n_id_genero');
+    }
+
 }

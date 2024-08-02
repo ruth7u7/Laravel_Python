@@ -16,6 +16,11 @@ class Distrito extends Model
         'Detalle'
 ];
     protected $casts = [
-        'n_id_genero' => 'integer'
+        'n_id_distrito' => 'integer'
     ];
+
+    public function Cine()
+    {
+        return $this->belongsTo(Cine::class, 'n_id_cine');
+    }
 }

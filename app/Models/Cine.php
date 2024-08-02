@@ -28,5 +28,11 @@ class Cine extends Model
         return $this->belongsToMany(Pelicula::class, 'CinePelicula', 'n_id_cine', 'n_id_pelicula')
             ->using(CinePelicula::class)
             ->withPivot('d_horarios');
-}
+        }
+        
+        public function cinePelicula()
+        {
+        return $this->hasMany(CinePelicula::class, 'n_id_pelicula');
+        }
+
 }
