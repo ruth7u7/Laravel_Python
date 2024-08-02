@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cinepelicula', function (Blueprint $table) {
             $table->unsignedBigInteger('n_id_pelicula');
             $table->unsignedBigInteger('n_id_cine');
-            $table->date('d_horarios', 150)->notNull();
+            $table->date('d_horarios')->notNull();
             $table->timestamps();
             $table->foreign('n_id_pelicula')->references('n_id_pelicula')->on('pelicula')->onDelete('cascade');
             $table->foreign('n_id_cine')->references('n_id_cine')->on('cine')->onDelete('cascade');
@@ -30,6 +30,7 @@ return new class extends Migration
             $table->dropForeign(['n_id_pelicula']);
             $table->dropForeign(['n_id_cine']);
         });
+        
         Schema::dropIfExists('cinepelicula');
         
     }

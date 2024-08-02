@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class CineTarifa extends Model
+use Illuminate\Database\Eloquent\Relations\Pivot;
+class CineTarifa extends Pivot
 {
-    use HasFactory;
     protected $table = 'CineTarifa';
     protected $fillable = [
         'idCine',
         'DiasSemana',
         'Precio',
     ];
-    protected $primaryKey = 'id';
+
     
     public function Cine() {
         return $this->belongsTo(Cine::class, 'id');

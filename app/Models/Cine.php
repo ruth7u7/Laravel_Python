@@ -22,4 +22,11 @@ class Cine extends Model
     public function Distrito(){
         return $this->belongsTo(Distrito::class, 'id');
     }
+
+    public function pelicula(){
+
+        return $this->belongsToMany(Pelicula::class, 'CinePelicula', 'n_id_cine', 'n_id_pelicula')
+            ->using(CinePelicula::class)
+            ->withPivot('d_horarios');
+}
 }

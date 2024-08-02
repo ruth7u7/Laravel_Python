@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Distrito extends Model
 {
-    use HasFactory;
-    protected $table = 'Distritos';
+    protected $table = 'Distrito';
+    protected $primaryKey = 'n_id_distrito';
+    public $incrementing = true;
+    protected $keyType = 'integer';
+    public $timestamps = false;
+
     protected $fillable = [
         'Detalle'
+];
+    protected $casts = [
+        'n_id_genero' => 'integer'
     ];
-    protected $primaryKey = 'id';
-    
 }

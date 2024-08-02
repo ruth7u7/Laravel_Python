@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cine', function (Blueprint $table) {
-            $table->id('n_id_cine');
+            $table->unsignedBigInteger('n_id_cine');
             $table->unsignedBigInteger('n_id_distrito');
             $table->string('v_razon_social',30)->notNull();
             $table->string('v_direccion',100)->notNull();
@@ -30,6 +30,7 @@ return new class extends Migration
         Schema::table('cine', function (Blueprint $table) {
             $table->dropForeign(['n_id_distrito']);
         });
+        
         Schema::dropIfExists('cine');
     }
 };

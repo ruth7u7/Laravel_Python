@@ -98,7 +98,7 @@ def handle_message(message):
     else:
         return "Por favor, proporciona el ID de una película. Por ejemplo, escribe 'película 1' o simplemente '1'."
 
-def get_movie_from_php_api(idpelicula):
+def get_movie_from_php_api(n_id_pelicula):
     """
     Esta función hace una solicitud GET a una API externa para obtener información de una película
     basada en su ID.
@@ -109,7 +109,7 @@ def get_movie_from_php_api(idpelicula):
     Returns:
         dict: La información de la película en formato JSON si se encuentra, None en caso contrario.    
     """
-    api_url = f'http://localhost:8000/api/get/{idpelicula}'  # Consumir la URL de la API de Laravel
+    api_url = f'http://localhost:8000/api/get/{n_id_pelicula}'  # Consumir la URL de la API de Laravel
     try:
         response = requests.get(api_url)  # Hacer la solicitud GET a la API
         response.raise_for_status()  # Lanza una excepción para códigos de estado HTTP erróneos
