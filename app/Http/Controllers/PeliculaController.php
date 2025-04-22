@@ -76,7 +76,7 @@ class PeliculaController extends Controller
     public function get($n_id_pelicula)
     {
 
-        $pelis = Pelicula::where('n_id_pelicula', $n_id_pelicula,)->first();
+        $pelis = Pelicula::where('n_id_pelicula', $n_id_pelicula)->first();
 
         if (!$pelis) {
             return response()->json(['error'=>'Ocurrio un error al obtener los datos de la pelicula'], 404);
